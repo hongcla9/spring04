@@ -1,0 +1,27 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>도서주문</title>
+</head>
+<body>
+	<h1>도서 주문 페이지 </h1>
+	<form name="f" action="bookShop.do" method="post">
+		<b>도서선택 :</b>
+		<select name="book">
+			<option>어린왕자 / 생텍쥐페리 / 15000 </option>
+			<option>연금술사 / 파울로 코엘료 / 21000 </option>
+			<option>홍길동전 / 허균 / 25000 </option>
+			<option>자바의 정석 / 남궁성 / 30000 </option>
+		</select>
+		 <b>수량 :</b>
+		 <input type="text" name="qty" size="2" value="1">
+		 <input type="submit" value="도서주문">
+	</form>
+	<hr color = "red">
+	<jsp:include page = "cart.jsp"/>
+	
+</body>
+</html>

@@ -1,0 +1,70 @@
+package book;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+public class BookShopServlet extends HttpServlet {
+	//서블릿 클래스가 되기위해 httpServlet 을 해줌
+	@Override
+	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		req.setCharacterEncoding("EUC-KR");
+		resp.setContentType("text/html; charset=EUC-KR");
+		
+		String cmd = req.getParameter("command");
+		
+		HttpSession session = req.getSession(); //세션값이 유지가된다
+		List<BookDTO> cart = (List)session.getAttribute("cart"); 
+		
+		if(cmd.equals("CHK")) {
+			
+		}else {
+			if (cmd.equals("ADD")) {
+				if (cart == null) {
+					cart = new ArrayList<>();
+				}
+				BookDTO dto = getBook(req);
+				cart.add(dto);
+			}else if (cmd.contentEquals("DEL")) {
+				
+			}
+		}
+	  
+		//BookDTO dto = getBook(req);
+		//List<BookDTO> cart = new ArrayList<>();
+		//cart.add(dto); //카트를 새롭게 만드는것이 아닌 세션값을 갖고왔으니 카트도 마찬가지로 갖고와준다
+		 // 세션을 뉴라고 만들면 새롭게 만들어지니까 기존의 세션을 가져와야한다 
+		
+		session.setAttribute("cart", cart);
+		RequestDispatcher view = req.getRequestDispatcher("bookShop.jsp");
+		view.forward(req, resp);
+		/*
+		//html에 북 넘어옴 
+		String book=req.getParameter("book"); 
+		PrintWriter pw = resp.getWriter(); //book 을 출력해줌
+		pw.println("<h2>선택하신도서 : " +book+ "</h2>");
+	*/
+	}
+	protected BookDTO getBook(HttpServletRequest req) {
+		String data = req.getParameter("book");
+		String qty = req.getParameter("qty");
+		BookDTO dto = new BookDTO();
+		Scanner in = new Scanner(data).useDelimiter("\\s*/\\s*");
+		dto.setTitle(in.next());
+		dto.setAuthor(in.next());
+		dto.setPrice(in.nextInt());
+		dto.setQty(Integer.parseInt(qty));
+		return dto;
+	}
+
+	
+}

@@ -1,0 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!-- result.jsp -->
+<h2>이글이 보이면 잘 만드신겁니다.</h2>

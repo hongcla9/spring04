@@ -1,0 +1,31 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR" import="java.util.*, book.*"%>
+<!-- cart.jsp -->
+<%
+List<BookDTO> cart = (List)session.getAttribute("cart");
+if (cart !=null )
+%>
+<b>현재 주문한 도서내역</b>
+<table border="1" width="500">
+	<tr>
+		<th width="30%">도서명</th>
+		<th width="30%">작가</th>
+		<th width="30%">가격</th>
+		<th width="30%">수량</th>
+		<th width="30%">삭제</th>
+	</tr>
+	
+	<%
+	 java.text.DecimalFormat df = new java.text.DecimalFormat("###,###");
+	 for(int i=0; i<cart.size(); ++i) {
+		 BookDTO dto = cart.get(i); %>
+ 		 <tr>
+ 		 	<td><%=dto.getTitle() %></td>
+ 		 	<td><%=dto.getAuthor() %></td>
+ 		 	<td><%=dto.getPrice() %></td>
+ 		 	<td><%=dto.getQty() %></td>
+ 		 	<td>삭제</td>
+ 		 </tr>
+<% 	 }	
+	%>
+</table>
